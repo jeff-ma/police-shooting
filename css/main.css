@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+
+body {
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-size: 18px;
+}
+
+#map {
+	height: 500px;
+}
+
+#info, #map, .legend {
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#header {
+	border-bottom: 1px #CCC solid;
+	margin-bottom:10px;
+	width:100%;
+	text-align:center;
+}
+
+/* Legend styling */
+.legend ul {
+	margin: 0;
+	margin-bottom: 5px;
+	padding: 0;
+	list-style: none;
+}
+
+.legend ul li {
+	font-size: 80%;
+	list-style: none;
+	margin-left: 0;
+	line-height: 18px;
+	margin-bottom: 2px;
+	margin-right:5px;
+	float: left;
+}
+
+.legend ul li span {
+	display: block;
+	height: 16px;
+	width: 16px;
+	margin-right: 5px;
+	margin-left: 0;
+	float: left;
+	border-radius: 50%;
+}
+
+/* Mobile phone screen */
+@media screen and (max-width: 767px) {
+    .legend {
+    	margin-bottom: 50px;
+    }
+}
+
+/* Tablet and larger screens*/
+@media screen and (min-width: 768px) {
+    .legend {
+    	margin-bottom: 30px;
+    }
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Police Shootings</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        <link rel="stylesheet" href="css/main.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+                <h2>Police shootings in America</h2>
+            </div>
+            <div id="map"></div><!-- Leaflet map container here -->
+            <div class="legend">
+                <ul>
+                    <li><span style='background:#DFE013;'></span>Injured</li>
+                    <li><span style='background:red;'></span>Killed</li>
+                    <li><span style='background:green;'></span>Age Under 20</li>
+                    <li><span style='background:brown;'></span>Age 20 to 40</li>
+                    <li><span style='background:blue;'></span>Age over 40</li>
+                </ul>
+            </div>
+            <div id="info">
+                <p>The map above represents crowd sourced data collected from over 1,500 incidents of police-involved shootings from 2011, 2012, 2013, and 2014. Data was compiled by <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">Deadspin</a></p>
+            </div>
+        </div>
+        <script>
+            // Add map to page
+            drawMap();
+            getData();
+        </script>
+    </body>
+</html>
+
