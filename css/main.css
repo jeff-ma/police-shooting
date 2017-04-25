@@ -1,65 +1,177 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
-
-body {
-	font-family: 'Open Sans', Arial, sans-serif;
-	font-size: 18px;
-}
-
-#map {
-	height: 500px;
-}
-
-#info, #map, .legend {
-	width:100%;
-	margin-left:auto;
-	margin-right:auto;
-}
-
 #header {
-	border-bottom: 1px #CCC solid;
-	margin-bottom:10px;
-	width:100%;
-	text-align:center;
+    color: #FFFFFF;
+    position: relative;
+    min-height: 80px;
+    width: 100%;
+    text-align: center;
+    padding-top: 0px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Legend styling */
-.legend ul {
-	margin: 0;
-	margin-bottom: 5px;
-	padding: 0;
-	list-style: none;
+#header h1 {
+    font-weight: 900;
+    font-size: 36px;
+    margin: 0;
 }
 
-.legend ul li {
-	font-size: 80%;
-	list-style: none;
-	margin-left: 0;
-	line-height: 18px;
-	margin-bottom: 2px;
-	margin-right:5px;
-	float: left;
+#search-filter-people-shot {
+    font-weight: 300;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.legend ul li span {
-	display: block;
-	height: 16px;
-	width: 16px;
-	margin-right: 5px;
-	margin-left: 0;
-	float: left;
-	border-radius: 50%;
+#search-results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
 }
 
-/* Mobile phone screen */
-@media screen and (max-width: 767px) {
-    .legend {
-    	margin-bottom: 50px;
+#search-results-summary {
+    font-size: 28px;
+    font-weight: 100;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#map-container {
+    position: relative;
+}
+
+#about p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#legend {
+    position: absolute;
+    display: none;
+	opacity: 0.9;
+    left: 140px;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    z-index: 50;
+}
+
+#legend ul {
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+    list-style: none;
+}
+
+#legend ul li {
+    font-size: 80%;
+    list-style: none;
+    margin-left: 0;
+    line-height: 18px;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    float: left;
+}
+
+#legend ul li span {
+    display: block;
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+    margin-left: 0;
+    float: left;
+    border-radius: 50%;
+}
+
+#incident {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 80px;
+}
+
+.incident-details {
+	color: #0288d1 ;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.content .container {
+    width: 100%;
+    max-width: 100%;
+}
+
+#footer {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+p {
+    margin: 0;
+}
+
+button:hover {
+    opacity: 0.6;
+}
+
+@media only screen and (max-width: 600px) {
+    #loader {
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+    }
+
+    #map {
+        width: 100%;
+        height: 300px;
+    }
+
+    #update-map {
+        margin-bottom: 20px;
+    }
+
+    #footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }
 
-/* Tablet and larger screens*/
-@media screen and (min-width: 768px) {
-    .legend {
-    	margin-bottom: 30px;
+@media only screen and (min-width: 601px) {
+    #loader {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+    }
+
+    #map {
+        width: 100%;
+        height: 600px;
+    }
+
+    #update-map {
+        margin-top: 20px;
+    }
+
+    #incident-column {
+        overflow-y: auto;
+    }
+
+    #incident {
+        height: 585px;
     }
 }

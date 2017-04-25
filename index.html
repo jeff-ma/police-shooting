@@ -2,40 +2,135 @@
 <html>
     <head>
         <title>Police Shootings</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link rel="stylesheet" href="css/main.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-        <script type="text/javascript" src="js/map.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYxOP1Eb_CAGqLl2XrZBpADTaeV40MuBA&"></script>
     </head>
     <body>
-        <div class="container">
-            <div id="header">
-                <h2>Police shootings in America</h2>
-            </div>
-            <div id="map"></div><!-- Leaflet map container here -->
-            <div class="legend">
-                <ul>
-                    <li><span style='background:#DFE013;'></span>Injured</li>
-                    <li><span style='background:red;'></span>Killed</li>
-                    <li><span style='background:green;'></span>Age Under 20</li>
-                    <li><span style='background:brown;'></span>Age 20 to 40</li>
-                    <li><span style='background:blue;'></span>Age over 40</li>
-                </ul>
-            </div>
-            <div id="info">
-                <p>The map above represents crowd sourced data collected from over 1,500 incidents of police-involved shootings from 2011, 2012, 2013, and 2014. Data was compiled by <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">Deadspin</a></p>
+        <!-- Circular preloader -->
+        <div id="loader">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <script>
-            // Add map to page
-            drawMap();
-            getData();
-        </script>
+        <!-- Header -->
+        <div id="header" class="grey darken-4">
+            <h1>Police Shootings In America</h1>
+        </div>
+        <!-- Filter form -->
+        <div id="search-filter" class="grey lighten-1">
+            <div class="container">
+                <div class="row">
+                    <p id="search-filter-people-shot">Search for people shot by police</p>
+                    <div class="input-field col s6 m2 offset-m1">
+                        <input id="from-date" name="from-date" type="date" class="datepicker">
+                        <label for="from-date" class="grey-text text-darken-3 active">From date</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input id="to-date" name="to-date" type="date" class="datepicker">
+                        <label for="to-date" class="grey-text text-darken-3 active">To date</label>      
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <select id="min-age" name="min-age">
+                        </select>
+                        <label for="min-age" class="grey-text text-darken-3">Minimum age</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <select id="max-age" name="max-age">
+                        </select>
+                        <label for="max-age" class="grey-text text-darken-3">Maximum age</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 m2 offset-m1">
+                        <select id="race" name="race">
+                            <option value="All">All</option>
+                            <option value="Asian">Asian or Pacific Islander</option>
+                            <option value="Black">Black or African American</option>
+                            <option value="Hispanic">Hispanic or Latino</option>
+                            <option value="Native">Native American</option>
+                            <option value="White">White or Caucasian</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                        <label for="race" class="grey-text text-darken-3">Race</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <select id="armed" name="armed">
+                            <option value="All">All</option>
+                            <option value="Armed">Armed</option>
+                            <option value="Unarmed">Unarmed</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                        <label for="armed" class="grey-text text-darken-3">Armed</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <select id="injured-killed" name="injured-killed">
+                            <option value="All">All</option>
+                            <option value="Hit">Injured</option>
+                            <option value="Killed">Killed</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                        <label for="injured-killed" class="grey-text text-darken-3">Injured / Killed</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                        <input id="zip" name="zip" type="text" placeholder="Zip Code">
+                        <label for="zip" class="grey-text text-darken-3">Zoom to</label>
+                    </div>
+                    <div class="col s12 m2">
+                        <button id="update-map" class="waves-effect waves-light btn light-blue darken-2" type="submit" onclick="updateMap()">Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="search-results" class="light-blue darken-2">
+            <p id="search-results-summary" class="white-text"></p>
+        </div>
+        <!-- Incident information and map section -->  
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div id="map-container" class="col s12 m6 push-m6">
+                        <!-- Color coded status legend-->
+                        <div id="legend">
+                            <ul>
+                                <li><span style='background:#DFE013;'></span>Injured</li>
+                                <li><span style='background:#FF0000;'></span>Killed</li>
+                                <li><span style='background:#FFA500;'></span>Unknown</li>
+                            </ul>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+                    <!-- Incident information -->
+                    <div id="incident-column" class="col s12 m6 pull-m6">
+                        <div id="incident" class="container">
+                            <div class="incident-details">Loading map</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div id="footer" class="grey darken-4">
+            <div class="container">
+                <p class="white-text">The information displayed on this page represents crowd sourced data of recent incidents of police involved shootings. The information has not been verified and should not be used for acutal research. Data was compiled by <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">Deadspin</a></p>
+            </div>
+        </div>
     </body>
 </html>
-
